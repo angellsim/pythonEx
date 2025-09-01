@@ -16,7 +16,16 @@ def organizarPlanilha():
     if caminho.lower().endswith((".xlsx", ".xls")):
       df = pd.read_excel(caminho)
 
-      df = df[["Produto", "Valor Unitário"]]
+      tk.Label(janela, text="Digite o nome do PRIMEIRO campo que deseja destacar: ").grid(row=0)
+      tk.Label(janela, text="Digite o nome do SEGUNDO campo que deseja destacar: ").grid(row=1)
+
+      campo1 = tk.Entry(janela)
+      campo2 = tk.Entry(janela)
+
+      campo1.grid(row=0, column=1)
+      campo2.grid(row=1, column=1)
+
+      df = df[[campo1, campo2]]
 
       pasta = os.path.dirname(caminho)
       saida = os.path.join(pasta, "planilha_organizada.xlsx")
@@ -67,15 +76,3 @@ if __name__ == "__main__":
   texto.configure(yscrollcommand=scroll_y.set)
 
   janela.mainloop()
-
-janela = tk.Tk()
-janela.title("Organizador de Planilhas")
-
-botao = tk.Button(janela, text="Organizar Planilha", command=organizarPlanilha)
-botao.pack()
-
-texto = tk.Text(janela, height=1920, width=1080)
-texto.pack()
-
-janela.mainloop()
-
